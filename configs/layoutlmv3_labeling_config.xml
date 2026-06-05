@@ -2,50 +2,28 @@
   <Header value="Multi-Page Document Layout Annotation"/>
 
   <View style="display:flex;align-items:start;gap:8px;flex-direction:row"><Image name="pdf" valueList="$pages" zoom="true" zoomControl="true" rotateControl="true"/><RectangleLabels name="layout_label" toName="pdf" showInline="false">
-    <!-- Headings -->
     <Label value="H1" background="#2ca02c"/>
     <Label value="H2" background="#98df8a"/>
     <Label value="H3" background="#ff7f0e"/>
     <Label value="H4" background="#FFA39E"/>
-    <Label value="H5" background="#f9c1be"/>
-    <Label value="Chapter_title" background="#1f77b4"/>
-    <Label value="Chapter_number" background="#aec7e8"/>
-    <Label value="Chapter_TOC" background="#8c564b"/>
+    <Label value="H5" background="#fccfcc"/>
 
-    <!-- Body text -->
-    <Label value="Paragraph_text" background="#cccccc"/>
-    <Label value="Numbered_list" background="#AD8B00"/>
-    <Label value="Unordered_list" background="#d6b656"/>
-    <Label value="Footnotes" background="#9edae5"/>
-
-    <!-- Tables -->
-    <Label value="Table" background="#d62728"/>
-    <Label value="Borderless_table" background="#ff9896"/>
-    <Label value="Table_of_content" background="#bcbd22"/>
-    <Label value="Table_caption" background="#FFC069"/>
-
-    <!-- Visual elements -->
-    <Label value="Image" background="#e377c2"/>
-    <Label value="Image_embedded_text" background="#c49c94"/>
-    <Label value="Figure_caption" background="#f7b6d2"/>
-    <Label value="Caption" background="#ffbb78"/>
-
-    <!-- Page furniture -->
-    <Label value="Page_number" background="#D4380D"/>
-    <Label value="Running_header_footer" background="#9467bd"/>
-
-    <!-- Structure -->
-    <Label value="Title_block" background="#393b79"/>
-    <Label value="Box_section" background="#5254a3"/>
-    <Label value="Form" background="#6b6ecf"/>
-
-
-
+    <Label value="caption" background="#FFC069"/>
+    <Label value="footnote" background="#1f77b4"/>
+    <Label value="form" background="#bcbd22"/>
+    <Label value="formula" background="#f9c1be"/>
+    <Label value="list" background="#c49c94"/>
+    <Label value="picture" background="#ff9896"/>
+    <Label value="section_header" background="#393b79"/>
+    <Label value="table" background="#D94545"/>
+    <Label value="title" background="#940505"/>
+    <Label value="text" background="#cccccc"/>
+    <Label value="unspecified" background="#000000"/>
 
     </RectangleLabels>
   </View>
 
-
+  
 
   <TextArea name="transcription" toName="pdf" perRegion="true" editable="true" rows="3" placeholder="Exact text inside the selected box"/>
 
