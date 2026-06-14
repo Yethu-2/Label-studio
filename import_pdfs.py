@@ -5,6 +5,7 @@ Images are served from the image server on port 9090.
 
 Usage:
     python import_pdfs.py --api-key TOKEN --project-id 4
+    python import_pdfs.py --api-key TOKEN --project-id 4 --pdf my_file.pdf
 """
 
 import argparse
@@ -17,7 +18,6 @@ PDF_DIR    = BASE_DIR / "data" / "pdfs"
 IMAGES_DIR = BASE_DIR / "data" / "images"
 LS_URL     = "http://localhost:8080"
 IMG_URL    = "http://localhost:9090"
-
 
 def pdf_to_images(pdf_path: Path, dpi: int = 150) -> list[Path]:
     out_dir = IMAGES_DIR / pdf_path.stem
@@ -44,6 +44,19 @@ def import_pdf_task(api_key: str, project_id: int, pdf_path: Path, image_paths: 
     return resp.json()
 
 
+def select_pdfs(pdf_arg: str | None) -> list[Path]:
+    if not pdf_arg:
+        return sorted(PDF_DIR.glob("*.pdf"))
+
+    pdf_name = pdf_arg if pdf_arg.lower().endswith(".pdf") else f"{pdf_arg}.pdf"
+    pdf_path = PDF_DIR / pdf_name
+
+    if not pdf_path.exists():
+        raise FileNotFoundError(f"PDF not found: {pdf_path}")
+
+    return [pdf_path]
+
+
 def get_existing_pdf_names(api_key: str, project_id: int) -> set[str]:
     names, page = set(), 1
     while True:
@@ -67,9 +80,15 @@ def main():
     parser.add_argument("--api-key",    required=True)
     parser.add_argument("--project-id", required=True, type=int)
     parser.add_argument("--dpi",        default=150,   type=int)
+    parser.add_argument("--pdf", help="Import only one PDF from data/pdfs (e.g. report.pdf)")
     args = parser.parse_args()
 
-    pdfs = sorted(PDF_DIR.glob("*.pdf"))
+    try:
+        pdfs = select_pdfs(args.pdf)
+    except FileNotFoundError as e:
+        print(e)
+        return
+
     if not pdfs:
         print(f"No PDFs found in {PDF_DIR}")
         return
